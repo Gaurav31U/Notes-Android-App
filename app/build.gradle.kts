@@ -38,6 +38,11 @@ android {
     packagingOptions {
         exclude("META-INF/atomicfu.kotlin_module")
     }
+    configurations.all {
+        resolutionStrategy {
+            force("org.jetbrains:annotations:23.0.0")
+        }
+    }
 }
 
 dependencies {
@@ -50,7 +55,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.compiler){
+        exclude(group = "com.intellij", module = "annotations")
+    }
     kapt(libs.androidx.room.compiler)
     testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
